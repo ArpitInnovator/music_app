@@ -4,6 +4,7 @@ import 'package:client/features/auth/view/pages/signup_page.dart';
 import 'package:client/features/auth/view/pages/widgets/auth_gradient_button.dart';
 import 'package:client/features/auth/view/pages/widgets/custom_field.dart';
 import 'package:flutter/material.dart';
+import 'package:fpdart/fpdart.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -57,10 +58,16 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 20),
 
                 AuthGradientButton(buttonText: "Sign in", onTap: () async {
-                    await AuthRemoteRepository().login(
+                    final res = await AuthRemoteRepository().login(
                       email: emailController.text,
                       password: passwordController.text
                       );
+
+                      final val = switch(res) {
+                        Left(value: final l) => l,
+                        Right(value: final r) => r,
+                      };
+                      print(val) ;
                 },
                 ),
 
