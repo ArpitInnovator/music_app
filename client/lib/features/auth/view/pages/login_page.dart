@@ -6,6 +6,7 @@ import 'package:client/features/auth/view/pages/signup_page.dart';
 import 'package:client/features/auth/view/pages/widgets/auth_gradient_button.dart';
 import 'package:client/features/auth/view/pages/widgets/custom_field.dart';
 import 'package:client/features/auth/viewmodel/auth_viewmodel.dart';
+import 'package:client/features/home/view/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fpdart/fpdart.dart';
@@ -32,17 +33,17 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    final isLoading = ref.watch(authViewModelProvider)?.isLoading == true ;
+    final isLoading = ref.watch(authViewModelProvider.select((val) => val?.isLoading == true));
 
       ref.listen(authViewModelProvider, (_, next) {
       next?.when(
         data: (data) {
-         // TODO: Navigate to home page
-
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(builder: (context) => const LoginPage()),
-          // );
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const HomePage()),
+              (_) => false,
+          );
         },
         error: (error, st) {
            showSnackBar(context, error.toString()) ;
@@ -81,17 +82,14 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
                 const SizedBox(height: 20),
 
-                AuthGradientButton(buttonText: "Sign in", onTap: () async {
-                    final res = await AuthRemoteRepository().login(
-                      email: emailController.text,
-                      password: passwordController.text
-                      );
-
-                      final val = switch(res) {
-                        Left(value: final l) => l,
-                        Right(value: final r) => r,
-                      };
-                      print(val) ;
+                AuthGradientButton(buttonText: "Sign in", 
+                onTap: () async {
+                  if(formKey.currentState!.validate())
+                   {
+                   ref.read(authViewModelProvider.notifier).loginUSer(email: emailController.text, password: passwordController.text) ;
+                  } else {
+                    showSnackBar(context, 'Missing field') ;
+                  }
                 },
                 ),
 
