@@ -59,7 +59,7 @@ def login_user(user:UserLogin, db: Session = Depends(get_db)):
 
 @router.get('/')
 def current_user_data(db: Session=Depends(get_db), user_dict = Depends(auth_middleware)):
-    # postgres database get theuser info
+    # postgres database get the user info
     
     user = db.query(User).filter(User.id == user_dict['uid']).first()
 

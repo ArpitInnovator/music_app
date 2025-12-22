@@ -28,102 +28,116 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
-    
   }
 
   @override
   Widget build(BuildContext context) {
-    final isLoading = ref.watch(authViewModelProvider.select((val) => val?.isLoading == true));
+    final isLoading = ref.watch(
+      authViewModelProvider.select((val) => val?.isLoading == true),
+    );
 
-      ref.listen(authViewModelProvider, (_, next) {
+    ref.listen(authViewModelProvider, (_, next) {
       next?.when(
         data: (data) {
+          showSnackBar(context, 'Sucessfully logged IN!');
           Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(
-              builder: (context) => const HomePage()),
-              (_) => false,
+            MaterialPageRoute(builder: (context) => const HomePage()),
+            (_) => false,
           );
         },
         error: (error, st) {
-           showSnackBar(context, error.toString()) ;
+          showSnackBar(context, error.toString());
         },
         loading: () {},
       );
-    }
-    );
+    });
 
     return Scaffold(
       appBar: AppBar(),
-      body: isLoading? const Loader() :  SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: Form(
-            key: formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
-                  'Sign In.',
-                  style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
-                ),
-
-                const SizedBox(height: 30),
-
-                CustomField(hintText: 'Email', controller: emailController),
-
-                const SizedBox(height: 15),
-
-                CustomField(
-                  hintText: 'Password',
-                  controller: passwordController,
-                  isObscureText: true,
-                ),
-
-                const SizedBox(height: 20),
-
-                AuthGradientButton(buttonText: "Sign in", 
-                onTap: () async {
-                  if(formKey.currentState!.validate())
-                   {
-                   ref.read(authViewModelProvider.notifier).loginUSer(email: emailController.text, password: passwordController.text) ;
-                  } else {
-                    showSnackBar(context, 'Missing field') ;
-                  }
-                },
-                ),
-
-                const SizedBox(height: 20),
-
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const SignupPage()
+      body: isLoading
+          ? const Loader()
+          : SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        'Sign In.',
+                        style: TextStyle(
+                          fontSize: 50,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    );
-                  },
-                  child: RichText(
-                    text: TextSpan(
-                      text: 'Don\'t have an account? ',
-                      style: Theme.of(context).textTheme.titleMedium,
-                      children: [
-                        TextSpan(
-                          text: 'Sign Up',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Pallete.gradient2,
+
+                      const SizedBox(height: 30),
+
+                      CustomField(
+                        hintText: 'Email',
+                        controller: emailController,
+                      ),
+
+                      const SizedBox(height: 15),
+
+                      CustomField(
+                        hintText: 'Password',
+                        controller: passwordController,
+                        isObscureText: true,
+                      ),
+
+                      const SizedBox(height: 20),
+
+                      AuthGradientButton(
+                        buttonText: "Sign in",
+                        onTap: () async {
+                          if (formKey.currentState!.validate()) {
+                            ref
+                                .read(authViewModelProvider.notifier)
+                                .loginUSer(
+                                  email: emailController.text,
+                                  password: passwordController.text,
+                                );
+                          } else {
+                            showSnackBar(context, 'Missing field');
+                          }
+                        },
+                      ),
+
+                      const SizedBox(height: 20),
+
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const SignupPage(),
+                            ),
+                          );
+                        },
+                        child: RichText(
+                          text: TextSpan(
+                            text: 'Don\'t have an account? ',
+                            style: Theme.of(context).textTheme.titleMedium,
+                            children: [
+                              TextSpan(
+                                text: 'Sign Up',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Pallete.gradient2,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
-              ],
+              ),
             ),
-          ),
-        ),
-      ),
     );
   }
 }

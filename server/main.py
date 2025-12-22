@@ -2,7 +2,7 @@ from fastapi import FastAPI #type:ignore
 from models.base import Base
 from routes import auth 
 from database import engine
-from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.cors import CORSMiddleware   #type:ignore
 
 app = FastAPI()
 
