@@ -78,6 +78,7 @@ class AuthViewModel extends _$AuthViewModel {
     final token = _authLocalRepository.getToken();
     if(token!=null) {
       final res = await _authRemoteRepository.getCurrentUserData(token);
+      if (!ref.mounted) return null;
       final val = switch (res) {
           Left(value: final l) => state = AsyncValue.error(
         l.message,

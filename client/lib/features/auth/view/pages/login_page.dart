@@ -7,6 +7,7 @@ import 'package:client/features/auth/view/pages/widgets/auth_gradient_button.dar
 import 'package:client/features/auth/view/pages/widgets/custom_field.dart';
 import 'package:client/features/auth/viewmodel/auth_viewmodel.dart';
 import 'package:client/features/home/view/pages/home_page.dart';
+import 'package:client/features/home/view/pages/upload_song_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fpdart/fpdart.dart';
@@ -42,7 +43,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
           showSnackBar(context, 'Sucessfully logged IN!');
           Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(builder: (context) => const HomePage()),
+            MaterialPageRoute(builder: (context) => const UploadSongPage()),
             (_) => false,
           );
         },
