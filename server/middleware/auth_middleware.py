@@ -2,10 +2,11 @@ import os
 from fastapi import Header, HTTPException  #type:ignore
 import jwt   #type: ignore
 from dotenv import load_dotenv   #type: ignore
+from config import Settings
 
-load_dotenv()
+settings = Settings()
 
-key = os.getenv('key') 
+key = settings.KEY
 
 def auth_middleware(x_auth_token=Header()):
     try:

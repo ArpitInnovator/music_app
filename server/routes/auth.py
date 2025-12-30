@@ -10,11 +10,10 @@ import jwt #type:ignore
 from dotenv import load_dotenv   #type: ignore
 from pydantic_schemas.user_login import UserLogin
 from middleware.auth_middleware import auth_middleware
+from config import Settings
 
-load_dotenv()
-
-key = os.getenv('key') 
-
+settings = Settings()
+key = settings.KEY
 router = APIRouter()
 
 @router.post('/signup', status_code=201)
