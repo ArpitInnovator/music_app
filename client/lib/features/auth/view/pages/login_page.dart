@@ -43,7 +43,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
           showSnackBar(context, 'Sucessfully logged IN!');
           Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(builder: (context) => const UploadSongPage()),
+            MaterialPageRoute(builder: (context) => const HomePage()),
             (_) => false,
           );
         },
