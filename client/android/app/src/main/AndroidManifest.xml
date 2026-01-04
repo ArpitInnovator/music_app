@@ -10,7 +10,7 @@ xmlns:tools="http://schemas.android.com/tools">
         android:label="client"
         android:name="${applicationName}"
         android:usesCleartextTraffic="true"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name="com.ryanheise.audioservice.AudioServiceActivity" 
             android:exported="true"
