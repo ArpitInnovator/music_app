@@ -16,8 +16,9 @@ class MusicPlayer extends ConsumerWidget {
     final currentSong = ref.watch(currentSongProvider);
     final songNotifier = ref.read(currentSongProvider.notifier);
 
-    final userFavorites = ref
-        .watch(currentUserProvider.select((data) => data!.favorites));
+    final userFavorites = ref.watch(
+      currentUserProvider.select((data) => data!.favorites),
+    );
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -77,39 +78,48 @@ class MusicPlayer extends ConsumerWidget {
                 children: [
                   Row(
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            currentSong.song_name,
-                            style: TextStyle(
-                              color: Pallete.whiteColor,
-                              fontSize: 24,
-                              fontWeight: FontWeight.w700,
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              currentSong.song_name,
+                              style: TextStyle(
+                                color: Pallete.whiteColor,
+                                fontSize: 24,
+                                fontWeight: FontWeight.w700,
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
                             ),
-                          ),
 
-                          Text(
-                            currentSong.artist,
-                            style: TextStyle(
-                              color: Pallete.subtitleText,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
+                            Text(
+                              currentSong.artist,
+                              style: TextStyle(
+                                color: Pallete.subtitleText,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                       const Expanded(child: SizedBox()),
                       IconButton(
                         onPressed: () async {
-                           await ref.read(homeViewmodelProvider.notifier).favSong(songId: currentSong.id);
+                          await ref
+                              .read(homeViewmodelProvider.notifier)
+                              .favSong(songId: currentSong.id);
                         },
-                        icon:  Icon(
-                          userFavorites.where((fav) => fav.song_id == currentSong.id)
-                          .toList()
-                          .isNotEmpty
-                          ? CupertinoIcons.heart_fill
-                          :CupertinoIcons.heart,
+                        icon: Icon(
+                          userFavorites
+                                  .where((fav) => fav.song_id == currentSong.id)
+                                  .toList()
+                                  .isNotEmpty
+                              ? CupertinoIcons.heart_fill
+                              : CupertinoIcons.heart,
                           color: Pallete.whiteColor,
                         ),
                       ),
@@ -119,8 +129,7 @@ class MusicPlayer extends ConsumerWidget {
                   StreamBuilder(
                     stream: songNotifier.audioPlayer!.positionStream,
                     builder: (context, AsyncSnapshot snapshot) {
-                      if (snapshot.connectionState ==
-                          ConnectionState.waiting) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
                         return const SizedBox();
                       }
                       final position = snapshot.data;
@@ -201,7 +210,7 @@ class MusicPlayer extends ConsumerWidget {
                         icon: StreamBuilder<PlayerState>(
                           stream: songNotifier.audioPlayer!.playerStateStream,
                           builder: (context, AsyncSnapshot snapshot) {
-                             final isPlaying = snapshot.data?.playing ?? false;
+                            final isPlaying = snapshot.data?.playing ?? false;
                             return Icon(
                               isPlaying
                                   ? CupertinoIcons.pause_circle_fill
@@ -209,7 +218,7 @@ class MusicPlayer extends ConsumerWidget {
                               size: 80,
                               color: Pallete.whiteColor,
                             );
-                          }
+                          },
                         ),
                       ),
                       Padding(

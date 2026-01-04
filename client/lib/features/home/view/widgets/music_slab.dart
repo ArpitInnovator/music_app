@@ -16,7 +16,9 @@ class MusicSlab extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final currentSong = ref.watch(currentSongProvider);
     final songNotifier = ref.read(currentSongProvider.notifier);
-    final userFavorites = ref.watch(currentUserProvider.select((data) => data!.favorites));
+    final userFavorites = ref.watch(
+      currentUserProvider.select((data) => data!.favorites),
+    );
 
     if (currentSong == null) {
       return const SizedBox();
@@ -84,9 +86,8 @@ class MusicSlab extends ConsumerWidget {
                               fontWeight: FontWeight.w500,
                             ),
                           ),
-
                           Text(
-                            currentSong.song_name,
+                            currentSong.artist,
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
@@ -100,15 +101,18 @@ class MusicSlab extends ConsumerWidget {
                   Row(
                     children: [
                       IconButton(
-                        onPressed: ()async {
-                          await ref.read(homeViewmodelProvider.notifier).favSong(songId: currentSong.id);
+                        onPressed: () async {
+                          await ref
+                              .read(homeViewmodelProvider.notifier)
+                              .favSong(songId: currentSong.id);
                         },
-                        icon:  Icon(
-                          userFavorites.where((fav) => fav.song_id == currentSong.id)
-                          .toList()
-                          .isNotEmpty
-                          ? CupertinoIcons.heart_fill
-                          :CupertinoIcons.heart,
+                        icon: Icon(
+                          userFavorites
+                                  .where((fav) => fav.song_id == currentSong.id)
+                                  .toList()
+                                  .isNotEmpty
+                              ? CupertinoIcons.heart_fill
+                              : CupertinoIcons.heart,
                           color: Pallete.whiteColor,
                         ),
                       ),
@@ -125,7 +129,7 @@ class MusicSlab extends ConsumerWidget {
                                   : CupertinoIcons.play_fill,
                               color: Pallete.whiteColor,
                             );
-                          }
+                          },
                         ),
                       ),
                     ],
