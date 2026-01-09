@@ -31,9 +31,13 @@ migrate_working_dir/
 .pub/
 /coverage/
 
-# Build folder (ignore everything except build/web)
-/build/
+# Ignore everything in build
+/build/*
+
+# But allow web build output
 !/build/web/
+!/build/web/**
+
 
 # Symbolication related
 app.*.symbols
