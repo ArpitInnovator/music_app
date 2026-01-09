@@ -5,6 +5,7 @@
 *.swp
 .DS_Store
 .atom/
+.build/
 .buildlog/
 .history
 .svn/
@@ -29,15 +30,8 @@ migrate_working_dir/
 .flutter-plugins-dependencies
 .pub-cache/
 .pub/
+/build/
 /coverage/
-
-# Ignore everything in build
-/build/*
-
-# But allow web build output
-!/build/web/
-!/build/web/**
-
 
 # Symbolication related
 app.*.symbols
