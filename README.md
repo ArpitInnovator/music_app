@@ -50,3 +50,4 @@ A full-stack **Music Streaming Application** that allows users to upload, stream
 ![Playback](screenshots/playback_page.jpeg)
 
 ---
+
