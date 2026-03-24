@@ -31,13 +31,23 @@ A full-stack **Music Streaming Application** that allows users to upload, stream
 ### Login Screen
 ![Login Screen](screenshots/SignIn_page.jpeg)
 
+### SignUp Screen
+![SignUp Screen](screenshots/SignUp_page.jpeg)
+
+### Song upload
+![Song upload](screenshots/upload_page.jpeg)
+
 ### Home Screen
-![Home Screen](screenshots/SignUp_page.jpeg)
+![Home](screenshots/Home_page.jpeg)
 
-### Music Player
-![Music Player](screenshots/player.png)
+### Music player Screen
+![Music player](screenshots/musicPlayer_page.jpeg)
 
-### Favorites
-![Favorites](screenshots/favorites.png)
+### Favorites Screen
+![Favorites](screenshots/favorites_page.jpeg)
+
+### Playback Screen
+![Playback](screenshots/playback_page.jpeg)
 
 ---
+
