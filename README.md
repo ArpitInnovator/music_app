@@ -51,3 +51,6 @@ A full-stack **Music Streaming Application** that allows users to upload, stream
 
 ---
 
+## Demo Video
+https://drive.google.com/file/d/1cUTT_RpdfRToEZpfxcw1jIOrgVpt0pCg/view?usp=drive_link
+
